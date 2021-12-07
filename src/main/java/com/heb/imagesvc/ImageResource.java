@@ -42,7 +42,9 @@ public class ImageResource {
 
     @GetMapping("/{image-id}")
     public @ResponseBody String getImageById(@PathVariable("image-id") String imageId){
-        return getImageById(imageId);
+        MyJDBC myJDBC = new MyJDBC();
+        ResultSet resultSet = myJDBC.getImageById(imageId);
+        return resultSet.toString();
     }
 
     @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
