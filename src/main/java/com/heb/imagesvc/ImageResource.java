@@ -41,13 +41,11 @@ public class ImageResource {
     }
 
     @GetMapping("/{image-id}")
-    public @ResponseBody String getImageById(@PathVariable("image-id") String imageId) throws SQLException {
+    public @ResponseBody ResponseModel getImageById(@PathVariable("image-id") String imageId) throws SQLException {
         MyJDBC myJDBC = new MyJDBC();
         ResultSet resultSet = myJDBC.getImageById(imageId);
-        return resultSet.getString("ImageId") + "\n" +
-                resultSet.getString("URL") + "\n" +
-                resultSet.getString("label") + "\n" +
-                resultSet.getString("detectedObjects") + "\n";
+        ResponseModel responseModel = new ResponseModel(resultSet.getString("label"), resultSet.getString("imageId"), resultSet.getString("url"), resultSet.getString("detectedObjects"));
+        return responseModel;
     }
 
     @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

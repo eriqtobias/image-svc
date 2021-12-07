@@ -42,7 +42,7 @@ public class MyJDBC {
 
         Statement statement = connection.createStatement();
 
-        String sqlQuery = "SELECT * FROM images WHERE ImageId = \'" + id +"\'";
+        String sqlQuery = "SELECT * FROM images WHERE ImageId = \'%" + id +"%\'";
 
         return statement.executeQuery(sqlQuery);
 
@@ -65,7 +65,7 @@ public class MyJDBC {
         String temp = "";
         for (String object : param){
             stringBuilder.append(temp);
-            stringBuilder.append("detectedObjects LIKE '%" + object + "%'");
+            stringBuilder.append("detectedObjects LIKE \'%" + object + "%\'");
             temp = " OR ";
 
         }
