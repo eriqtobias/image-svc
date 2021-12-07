@@ -1,6 +1,8 @@
 package com.heb.imagesvc;
 
 import com.heb.imagesvc.models.RequestModel;
+import com.heb.imagesvc.models.ResponseModel;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;
@@ -14,6 +16,8 @@ public class ImaggaRequestBuilder {
 
     public String buildRequest(RequestModel requestModel) throws IOException {
         String image_url = requestModel.getImageURL();
+        String trimmed[] = image_url.split("\\?");
+        image_url = trimmed[0];
         String credentialsToEncode = "acc_a8a195c3f9169a2" + ":" + "7819967cbeaca0a3aa2bf7ae4f7aa716";
         String basicAuth = Base64.getEncoder().encodeToString(credentialsToEncode.getBytes(StandardCharsets.UTF_8));
 
