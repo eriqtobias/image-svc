@@ -56,6 +56,7 @@ public class MyJDBC {
 
     public ResultSet getImagesContaining(String objects){
 
+        objects = objects.replace("\"", "");
         String param[] = objects.split(",");
 
         try {
@@ -77,7 +78,6 @@ public class MyJDBC {
             }
 
             String sqlQuery = stringBuilder.toString();
-            System.out.println(sqlQuery);
 
             ResultSet resultSet = statement.executeQuery(sqlQuery);
 
