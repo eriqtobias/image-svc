@@ -2,10 +2,7 @@ package com.heb.imagesvc;
 
 import com.heb.imagesvc.models.ResponseModel;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 public class MyJDBC {
     public void writeDb(String id, String url, String label, String detectedObjects){
@@ -45,24 +42,16 @@ public class MyJDBC {
         return null;
     }
 
-    public ResultSet getImageById(String id){
-        try {
+    public ResultSet getImageById(String id) throws SQLException {
 
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/imageschema", "root", "pass");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/imageschema", "root", "pass");
 
-            Statement statement = connection.createStatement();
+        Statement statement = connection.createStatement();
 
-            String sqlQuery = "SELECT * FROM imageschema WHERE ImageId LIKE " + id;
+        String sqlQuery = "SELECT * FROM images WHERE ImageId = \'" + id +"\'";
 
-            ResultSet resultSet = statement.executeQuery(sqlQuery);
+        return statement.executeQuery(sqlQuery);
 
-            return resultSet;
-
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return null;
     }
 
     public ResultSet getImagesContaining(String objects){
@@ -77,7 +66,7 @@ public class MyJDBC {
 
             StringBuilder stringBuilder = new StringBuilder();
 
-            stringBuilder.append("SELECT * FROM imageschema WHERE ");
+            stringBuilder.append("SELECT * FROM images WHERE ");
 
             String temp = "";
             for (String object : param){
