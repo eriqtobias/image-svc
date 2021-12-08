@@ -1,6 +1,7 @@
 package com.heb.imagesvc;
 
 import com.heb.imagesvc.models.ResponseModel;
+import com.heb.imagesvc.utils.ResponseBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ import java.util.UUID;
 public class ImageResource {
 
     @GetMapping("")
-    public @ResponseBody String getImages(@RequestParam(required = false, value = "objects") String objects) throws SQLException {
+    public @ResponseBody ResponseModel[] getImages(@RequestParam(required = false, value = "objects") String objects) throws SQLException {
 
         MyJDBC myJDBC = new MyJDBC();
         ResultSet resultSet;
@@ -27,16 +28,8 @@ public class ImageResource {
         else{
             resultSet = myJDBC.getImagesContaining(objects);
         }
-        StringBuilder stringBuilder = new StringBuilder();
-        while(resultSet.next()){
-            stringBuilder.append(
-            resultSet.getString("ImageId") + "\n" +
-                    resultSet.getString("URL") + "\n" +
-                    resultSet.getString("label") + "\n" +
-                    resultSet.getString("detectedObjects") + "\n");
 
-        }
-        return stringBuilder.toString(); //TODO: Return as JSON
+        return ResponseBuilder.builder(resultSet, 0);
 
     }
 
