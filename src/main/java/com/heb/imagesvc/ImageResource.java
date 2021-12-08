@@ -44,6 +44,7 @@ public class ImageResource {
     public @ResponseBody ResponseModel getImageById(@PathVariable("image-id") String imageId) throws SQLException {
         MyJDBC myJDBC = new MyJDBC();
         ResultSet resultSet = myJDBC.getImageById(imageId);
+        resultSet.next();
         ResponseModel responseModel = new ResponseModel(resultSet.getString("label"), resultSet.getString("imageId"), resultSet.getString("url"), resultSet.getString("detectedObjects"));
         return responseModel;
     }

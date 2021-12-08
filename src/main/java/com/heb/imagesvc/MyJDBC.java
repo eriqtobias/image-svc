@@ -1,7 +1,5 @@
 package com.heb.imagesvc;
 
-import com.heb.imagesvc.models.ResponseModel;
-
 import java.sql.*;
 
 public class MyJDBC {
@@ -28,11 +26,9 @@ public class MyJDBC {
 
         Statement statement = connection.createStatement();
 
-        String sqlQuery = "SELECT `images`.`ImageId`, `images`.`URL`, `images`.`label`, `images`.`detectedObjects` FROM `imageschema`.`images`;";
+        String sqlQuery = "SELECT * FROM images;";
 
-        ResultSet resultSet = statement.executeQuery(sqlQuery);
-
-        return resultSet;
+        return statement.executeQuery(sqlQuery);
 
     }
 
@@ -42,7 +38,7 @@ public class MyJDBC {
 
         Statement statement = connection.createStatement();
 
-        String sqlQuery = "SELECT * FROM images WHERE ImageId = \'%" + id +"%\'";
+        String sqlQuery = "SELECT * FROM images WHERE ImageId = \"" + id +"\";";
 
         return statement.executeQuery(sqlQuery);
 
@@ -72,9 +68,7 @@ public class MyJDBC {
 
         String sqlQuery = stringBuilder.toString();
 
-        ResultSet resultSet = statement.executeQuery(sqlQuery);
-
-        return resultSet;
+        return statement.executeQuery(sqlQuery);
 
     }
 }
