@@ -38,8 +38,7 @@ public class ImageResource {
         MyJDBC myJDBC = new MyJDBC();
         ResultSet resultSet = myJDBC.getImageById(imageId);
         resultSet.next();
-        ResponseModel responseModel = new ResponseModel(resultSet.getString("label"), resultSet.getString("imageId"), resultSet.getString("url"), resultSet.getString("detectedObjects"));
-        return responseModel;
+        return new ResponseModel(resultSet.getString("label"), resultSet.getString("imageId"), resultSet.getString("url"), resultSet.getString("detectedObjects"));
     }
 
     @PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -74,9 +73,7 @@ public class ImageResource {
 
         myJDBC.writeDb(id, url, label, detectedObjects);
 
-        ResponseModel responseModel = new ResponseModel(label, id, url, detectedObjects);
-
-        return responseModel;
+        return new ResponseModel(label, id, url, detectedObjects);
 
     }
 
