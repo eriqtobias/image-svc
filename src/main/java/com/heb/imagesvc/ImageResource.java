@@ -64,7 +64,7 @@ public class ImageResource {
 
         if (label == null || label == ""){
             String firstObject[] = detectedObjects.split(",");
-            label = firstObject[0];
+            label = firstObject[1];
         }
 
         if (label == null || label == ""){

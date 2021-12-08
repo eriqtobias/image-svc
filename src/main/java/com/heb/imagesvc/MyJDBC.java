@@ -61,7 +61,7 @@ public class MyJDBC {
         String temp = "";
         for (String object : param){
             stringBuilder.append(temp);
-            stringBuilder.append("detectedObjects LIKE \'%" + object + "%\'");
+            stringBuilder.append("detectedObjects LIKE \'%," + object + ",%\'");
             temp = " OR ";
 
         }
